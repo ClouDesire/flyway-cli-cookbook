@@ -7,6 +7,8 @@
 # All rights reserved - Do Not Redistribute
 #
 
+include_recipe "java"
+
 flyway_url = node[:flyway][:base_url].gsub! 'VERSION', node[:flyway][:version]
 installation_path = node[:flyway][:installation_path]
 
