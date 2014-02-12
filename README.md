@@ -26,6 +26,9 @@ node[:flyway][:jdbc_username] = ""
 node[:flyway][:jdbc_password] = ""
 node[:flyway][:jdbc_driver][:postgresql][:version] = "9.3-1100-jdbc4"
 node[:flyway][:jdbc_driver][:mysql][:version] = "5.1.28"
+
+# Determines if the Opscode Java recipe is included 
+node[:flyway][:include_java_recipe] = true
 ```
 
 # Recipes
