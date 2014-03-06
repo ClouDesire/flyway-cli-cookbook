@@ -21,6 +21,7 @@ end
 bash 'extract_flyway' do
     cwd Chef::Config[:file_cache_path]
     code <<-EOH
+      rm -fr #{installation_path}
       mkdir -p #{installation_path}
       tar xzf flyway-commandline-#{node[:flyway][:version]}.tar.gz -C #{installation_path} --strip-components=1
     EOH
