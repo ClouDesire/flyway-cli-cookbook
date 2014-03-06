@@ -2,7 +2,7 @@
 # Cookbook Name:: flyway-cli
 # Recipe:: default
 #
-# Copyright (C) 2014 YOUR_NAME
+# Copyright (C) 2014 ClouDesire
 #
 # All rights reserved - Do Not Redistribute
 #
