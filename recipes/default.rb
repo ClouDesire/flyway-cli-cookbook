@@ -31,23 +31,35 @@ end
 postgresql_jdbc = node[:flyway][:jdbc_driver][:postgresql]
 remote_file installation_path + '/jars/postgresql-' + postgresql_jdbc[:version] + '.jar' do
     source postgresql_jdbc[:url].gsub! 'VERSION', postgresql_jdbc[:version]
+    action :create_if_missing
 end
 
 mysql_jdbc = node[:flyway][:jdbc_driver][:mysql]
 remote_file installation_path + '/jars/mysql-connector-java-' + mysql_jdbc[:version] + '.jar' do
     source mysql_jdbc[:url].gsub! 'VERSION', mysql_jdbc[:version]
+    action :create_if_missing
 end
 
-file installation_path + "/conf/flyway.properties" do
-  owner "root"
-  group "root"
-  mode  "0755"
-  action :create
-  content <<-EOH
-flyway.url=#{node[:flyway][:jdbc_url]}
-flyway.user=#{node[:flyway][:jdbc_username]}
-flyway.password=#{node[:flyway][:jdbc_password]}
-  EOH
+node[:flyway][:confs].each do |key, confs|
+
+  sql_dir = installation_path + "/sql/#{key}"
+
+  directory sql_dir do
+    action :create
+  end
+
+  file installation_path + "/conf/#{key}.properties" do
+    owner "root"
+    group "root"
+    mode  "0755"
+    action :create
+    content <<-EOH
+flyway.url=#{confs[:jdbc_url]}
+flyway.user=#{confs[:jdbc_username]}
+flyway.password=#{confs[:jdbc_password]}
+flyway.locations=filesystem:#{sql_dir}
+    EOH
+  end
 end
 
 ruby_block 'set-installed-version' do

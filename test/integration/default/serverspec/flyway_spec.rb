@@ -9,6 +9,6 @@ describe command('java -version') do
   it { should return_exit_status 0 }
 end
 
-describe command('/opt/flyway/flyway.sh') do
+describe command('/opt/flyway/flyway') do
   it { should return_exit_status 0 }
 end

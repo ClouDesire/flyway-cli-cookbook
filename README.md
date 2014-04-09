@@ -1,7 +1,7 @@
 flyway-cli-cookbook
 ===================
 
-This cookbook configure the CLI version of the flyway tool.
+This cookbook configure the CLI version of the flyway tool, and support multiple databases.
 
 # Requirements
 
@@ -21,13 +21,23 @@ include_recipe "flyway-cli::migrate"
 ```
 node[:flyway][:version] = "2.1.1"
 node[:flyway][:installation_path] = "/opt/flyway"
-node[:flyway][:jdbc_url] = "jdbc:postgresql://localhost:5432/database"
-node[:flyway][:jdbc_username] = ""
-node[:flyway][:jdbc_password] = ""
 node[:flyway][:jdbc_driver][:postgresql][:version] = "9.3-1100-jdbc4"
 node[:flyway][:jdbc_driver][:mysql][:version] = "5.1.28"
 
-# Determines if the Opscode Java recipe is included 
+node[:flyway][:confs] = {
+    :default => {
+        :jdbc_url => "jdbc:postgresql://localhost:5432/database",
+        :jdbc_username => "username",
+        :jdbc_password => "password"
+    },
+    :default2 => {
+        :jdbc_url => "jdbc:postgresql://localhost:5432/database2",
+        :jdbc_username => "username2",
+        :jdbc_password => "password2"
+    }
+}
+
+## Determines if the Opscode Java recipe is included
 node[:flyway][:include_java_recipe] = true
 ```
 
@@ -35,11 +45,11 @@ node[:flyway][:include_java_recipe] = true
 
 ## default
 
-Download flyway, extract it in a folder, download jdbc driver for mysql and postgres.
+Download flyway, extract it in a folder, download jdbc driver for mysql and postgres, generate configs for the requested databases.
 
 ## migrate
 
-Launch migrations.
+Launch migrations for every configured database.
 
 # Author
 

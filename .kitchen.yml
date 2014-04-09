@@ -14,4 +14,19 @@ suites:
       - recipe[apt]
       - recipe[java]
       - recipe[flyway-cli::default]
+      - recipe[flyway-cli::test]
+      - recipe[flyway-cli::migrate]
     attributes:
+      postgresql:
+        password:
+          postgres: admin
+      flyway:
+        confs:
+          pippo:
+            jdbc_url: jdbc:postgresql://localhost:5432/pippo
+            jdbc_username: pippo
+            jdbc_password: pippo
+          pippo2:
+            jdbc_url: jdbc:postgresql://localhost:5432/pippo2
+            jdbc_username: pippo2
+            jdbc_password: pippo2
