@@ -1,6 +1,8 @@
 flyway-cli-cookbook
 ===================
 
+[![Build Status](https://travis-ci.org/ClouDesire/flyway-cli-cookbook.svg?branch=master)](https://travis-ci.org/ClouDesire/flyway-cli-cookbook)
+
 This cookbook configure the CLI version of the flyway tool, and support multiple databases.
 
 # Requirements
