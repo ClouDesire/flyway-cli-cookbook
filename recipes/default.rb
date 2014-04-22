@@ -48,18 +48,6 @@ node[:flyway][:confs].each do |key, confs|
     action :create
   end
 
-  file installation_path + "/conf/#{key}.properties" do
-    owner "root"
-    group "root"
-    mode  "0755"
-    action :create
-    content <<-EOH
-flyway.url=#{confs[:jdbc_url]}
-flyway.user=#{confs[:jdbc_username]}
-flyway.password=#{confs[:jdbc_password]}
-flyway.locations=filesystem:#{sql_dir}
-    EOH
-  end
 end
 
 ruby_block 'set-installed-version' do
