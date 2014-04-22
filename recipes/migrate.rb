@@ -1,7 +1,7 @@
 
 path = node[:flyway][:installation_path]
 node[:flyway][:confs].each do |key, confs|
-  file installation_path + "/conf/#{key}.properties" do
+  file path + "/conf/#{key}.properties" do
     owner "root"
     group "root"
     mode  "0755"
@@ -10,7 +10,7 @@ node[:flyway][:confs].each do |key, confs|
 flyway.url=#{confs[:jdbc_url]}
 flyway.user=#{confs[:jdbc_username]}
 flyway.password=#{confs[:jdbc_password]}
-flyway.locations=filesystem:#{sql_dir}
+flyway.locations=filesystem:#{path}/sql
     EOH
   end
 
