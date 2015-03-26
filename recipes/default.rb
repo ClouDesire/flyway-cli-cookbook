@@ -13,6 +13,7 @@ end
 
 flyway_url = node[:flyway][:base_url].gsub! 'VERSION', node[:flyway][:version]
 installation_path = node[:flyway][:installation_path]
+migrations_path = node[:flyway][:migrations_path]
 
 remote_file "#{Chef::Config[:file_cache_path]}/flyway-commandline-#{node[:flyway][:version]}.tar.gz" do
   source flyway_url
@@ -42,9 +43,10 @@ end
 
 node[:flyway][:confs].each do |key, confs|
 
-  sql_dir = installation_path + "/sql/#{key}"
+  sql_dir = migrations_path + "/#{key}"
 
   directory sql_dir do
+    recursive true
     action :create
   end
 

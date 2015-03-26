@@ -14,7 +14,7 @@ An already configured database, and a bunch of flyway migrations.
 ```
 include_recipe "flyway-cli::default"
 
-## put your migrations in node[:flyway][:installation_path] + '/sql'
+## put your migrations in node[:flyway][:migrations_path]
 
 include_recipe "flyway-cli::migrate"
 ```

@@ -1,5 +1,6 @@
 default[:flyway][:version] = "2.3"
 default[:flyway][:installation_path] = "/opt/flyway"
+default[:flyway][:migrations_path] = "/opt/flyway/sql"
 default[:flyway][:jdbc_url] = "jdbc:postgresql://localhost:5432/database" #deprecated
 default[:flyway][:jdbc_username] = "" #deprecated
 default[:flyway][:jdbc_password] = "" #deprecated
