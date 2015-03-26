@@ -23,6 +23,7 @@ include_recipe "flyway-cli::migrate"
 ```
 node[:flyway][:version] = "2.1.1"
 node[:flyway][:installation_path] = "/opt/flyway"
+node[:flyway][:migrations_path] = "/opt/flyway/sql"
 node[:flyway][:jdbc_driver][:postgresql][:version] = "9.3-1100-jdbc4"
 node[:flyway][:jdbc_driver][:mysql][:version] = "5.1.28"
 
