@@ -11,49 +11,16 @@ if node[:flyway][:include_java_recipe] == true
   include_recipe "java"
 end
 
-flyway_url = node[:flyway][:base_url].gsub! 'VERSION', node[:flyway][:version]
-installation_path = node[:flyway][:installation_path]
-migrations_path = node[:flyway][:migrations_path]
-
-remote_file "#{Chef::Config[:file_cache_path]}/flyway-commandline-#{node[:flyway][:version]}.tar.gz" do
-  source flyway_url
-end
-
-bash 'extract_flyway' do
-  cwd Chef::Config[:file_cache_path]
-  code <<-EOH
-    rm -fr #{installation_path}
-    mkdir -p #{installation_path}
-    tar xzf flyway-commandline-#{node[:flyway][:version]}.tar.gz -C #{installation_path} --strip-components=1
-  EOH
-  not_if { node[:flyway][:version] == node[:flyway][:version_installed] }
-end
-
-postgresql_jdbc = node[:flyway][:jdbc_driver][:postgresql]
-remote_file installation_path + '/jars/postgresql-' + postgresql_jdbc[:version] + '.jar' do
-  source postgresql_jdbc[:url].gsub! 'VERSION', postgresql_jdbc[:version]
-  action :create_if_missing
-end
-
-mysql_jdbc = node[:flyway][:jdbc_driver][:mysql]
-remote_file installation_path + '/jars/mysql-connector-java-' + mysql_jdbc[:version] + '.jar' do
-  source mysql_jdbc[:url].gsub! 'VERSION', mysql_jdbc[:version]
-  action :create_if_missing
+directory node[:flyway][:installation_path] do
+  recursive true
 end
 
 node[:flyway][:confs].each do |key, confs|
-
-  sql_dir = migrations_path + "/#{key}"
-
+  sql_dir = node[:flyway][:migrations_path] + "/#{key}"
   directory sql_dir do
     recursive true
     action :create
   end
-
 end
 
-ruby_block 'set-installed-version' do
-  block do
-    node.set[:flyway][:version_installed] = node[:flyway][:version]
-  end
-end
+include_recipe "flyway-cli::install"

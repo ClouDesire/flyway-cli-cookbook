@@ -1,11 +1,21 @@
 
-path = node[:flyway][:installation_path]
-migrations_path = node[:flyway][:migrations_path]
+include_recipe "flyway-cli::default"
+
+
+installation_path = node[:flyway][:installation_path]
+
+# Flyway don't care if platform is windows or linux
+migrations_path = node[:flyway][:migrations_path].gsub(/\\/, '/')
+
+# Why JAVA_HOME is not already set ?
+windows_batch 'set_java_home' do
+  code <<-EOH
+  set JAVA_HOME=#{node[:java][:java_home]}
+  EOH
+end
+
 node[:flyway][:confs].each do |key, confs|
-  file path + "/conf/#{key}.properties" do
-    owner "root"
-    group "root"
-    mode  "0755"
+  file installation_path + "/conf/#{key}.properties" do
     action :create
     content <<-EOH
 flyway.url=#{confs[:jdbc_url]}
@@ -16,6 +26,6 @@ flyway.locations=filesystem:#{migrations_path}
   end
 
   execute "do migrations" do
-    command path + "/flyway migrate -configFile=#{path}/conf/#{key}.properties -initOnMigrate=" + node[:flyway][:init_on_migrate]
+    command installation_path + "/flyway migrate -configFile=#{installation_path}/conf/#{key}.properties -initOnMigrate=" + node[:flyway][:init_on_migrate]
   end
 end
