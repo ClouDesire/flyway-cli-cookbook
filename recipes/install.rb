@@ -7,9 +7,6 @@
 # All rights reserved - Do Not Redistribute
 #
 
-include_recipe 'windows'
-
-
 installation_path = node[:flyway][:installation_path]
 migrations_path = node[:flyway][:migrations_path]
 
@@ -17,6 +14,7 @@ flyway_url = node[:flyway][:base_url].gsub! 'VERSION', node[:flyway][:version]
 
 if platform_family?("windows") # Windows
 
+  include_recipe 'windows'
   if node[:flyway][:version] != node[:flyway][:version_installed]
     # Download and unzip flyway zip file
     flyway_url = flyway_url.gsub! 'tar.gz', 'zip'
