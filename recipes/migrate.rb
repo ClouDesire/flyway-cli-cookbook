@@ -7,11 +7,12 @@ installation_path = node[:flyway][:installation_path]
 # Flyway don't care if platform is windows or linux
 migrations_path = node[:flyway][:migrations_path].gsub(/\\/, '/')
 
-# Why JAVA_HOME is not already set ?
-windows_batch 'set_java_home' do
-  code <<-EOH
-  set JAVA_HOME=#{node[:java][:java_home]}
-  EOH
+if platform_family?("windows")
+  windows_batch 'set_java_home' do
+    code <<-EOH
+    set JAVA_HOME=#{node[:java][:java_home]}
+    EOH
+  end
 end
 
 node[:flyway][:confs].each do |key, confs|
