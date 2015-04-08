@@ -49,7 +49,9 @@ else # Linux
   bash 'extract_flyway' do
     cwd Chef::Config[:file_cache_path]
     code <<-EOH
-      rm -fr #{installation_path}
+      shopt -s extglob
+      rm -rf #{installation_path}/!(sql)
+      shopt -u extglob
       mkdir -p #{installation_path}
       tar xzf flyway-commandline-#{node[:flyway][:version]}.tar.gz -C #{installation_path} --strip-components=1
     EOH
