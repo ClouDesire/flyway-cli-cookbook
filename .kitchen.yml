@@ -12,12 +12,14 @@ platforms:
 suites:
   - name: default
     run_list:
-      - recipe[apt]
+      - recipe[ubuntu]
       - recipe[java]
       - recipe[flyway-cli::default]
       - recipe[flyway-cli::test]
       - recipe[flyway-cli::migrate]
     attributes:
+      ubuntu:
+        archive_url: http://it.archive.ubuntu.com/ubuntu
       postgresql:
         password:
           postgres: admin

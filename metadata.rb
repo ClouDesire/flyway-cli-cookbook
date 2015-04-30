@@ -7,7 +7,7 @@ long_description IO.read(File.join(File.dirname(__FILE__), 'README.md'))
 version          '0.3.0'
 supports         'ubuntu'
 supports         'windows'
-depends          'apt'
+depends          'ubuntu'
 depends          'java', '~> 1.17'
 depends          'postgresql', '~> 3.4.10'
 depends          'database', '~> 2.1.2'
