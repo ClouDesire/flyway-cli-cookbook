@@ -15,8 +15,10 @@ An already configured database, and a bunch of flyway migrations.
 include_recipe "flyway-cli::default"
 
 ## put your migrations in node[:flyway][:migrations_path]
+## run migrate
 
-include_recipe "flyway-cli::migrate"
+flyway_migrate
+
 ```
 # Attributes
 
@@ -49,9 +51,9 @@ node[:flyway][:include_java_recipe] = true
 
 Download flyway, extract it in a folder, download jdbc driver for mysql, postgres and sql server, generate configs for the requested databases.
 
-## migrate
+## migrate - DEPRECATED
 
-Launch migrations for every configured database.
+Use ``flyway_migrate`` resource to launch migrations for every configured database.
 
 # Authors
 
