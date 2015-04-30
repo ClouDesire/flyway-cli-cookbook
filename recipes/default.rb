@@ -7,16 +7,16 @@
 # All rights reserved - Do Not Redistribute
 #
 
-if node[:flyway][:include_java_recipe] == true
+if node['flyway']['include_java_recipe'] == true
   include_recipe "java"
 end
 
-directory node[:flyway][:installation_path] do
+directory node['flyway']['installation_path'] do
   recursive true
 end
 
-node[:flyway][:confs].each do |key, confs|
-  sql_dir = node[:flyway][:migrations_path] + "/#{key}"
+node['flyway']['confs'].each do |key, confs|
+  sql_dir = node['flyway']['migrations_path'] + "/#{key}"
   directory sql_dir do
     recursive true
     action :create
