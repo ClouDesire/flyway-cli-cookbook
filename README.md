@@ -53,6 +53,8 @@ Download flyway, extract it in a folder, download jdbc driver for mysql, postgre
 
 Launch migrations for every configured database.
 
-# Author
+# Authors
 
-Giovanni Toraldo (<giovanni.toraldo@cloudesire.com>)
+Giovanni Toraldo @gionn
+Manuel Mazzuola @manuelmazzuola
+
