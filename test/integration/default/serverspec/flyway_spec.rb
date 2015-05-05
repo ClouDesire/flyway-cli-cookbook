@@ -1,4 +1,7 @@
-require 'spec_helper'
+require 'serverspec'
+
+# Required by serverspec
+set :backend, :exec
 
 describe file('/opt/flyway/conf/flyway.properties') do
   it { should be_file }
@@ -6,9 +9,9 @@ describe file('/opt/flyway/conf/flyway.properties') do
 end
 
 describe command('java -version') do
-  it { should return_exit_status 0 }
+  its(:exit_status) { should eq 0 }
 end
 
 describe command('/opt/flyway/flyway') do
-  it { should return_exit_status 0 }
+  its(:exit_status) { should eq 0 }
 end

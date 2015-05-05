@@ -15,7 +15,7 @@ define :flyway_migrate do
 flyway.url=#{confs[:jdbc_url]}
 flyway.user=#{confs[:jdbc_username]}
 flyway.password=#{confs[:jdbc_password]}
-flyway.locations=filesystem:#{migrations_path}
+flyway.locations=filesystem:#{migrations_path}/#{key}
 java.home=#{node['java']['java_home']}
 EOH
     end

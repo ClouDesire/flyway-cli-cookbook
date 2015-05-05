@@ -13,7 +13,8 @@ suites:
   - name: default
     run_list:
       - recipe[ubuntu]
-      - recipe[java]
+      - recipe[postgresql::server]
+      - recipe[database::postgresql]
       - recipe[flyway-cli::default]
       - recipe[flyway-cli::test]
       - recipe[flyway-cli::migrate]
@@ -21,6 +22,8 @@ suites:
       ubuntu:
         archive_url: http://it.archive.ubuntu.com/ubuntu
       postgresql:
+        version: "9.4"
+        enable_pgdg_apt: true
         password:
           postgres: admin
       flyway:
