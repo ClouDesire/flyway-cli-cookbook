@@ -48,6 +48,7 @@ else # Linux
   bash 'extract_flyway' do
     cwd Chef::Config[:file_cache_path]
     code <<-EOH
+      set -e
       shopt -s extglob
       rm -rf #{installation_path}/!(sql)
       shopt -u extglob
