@@ -3,7 +3,12 @@ require 'serverspec'
 # Required by serverspec
 set :backend, :exec
 
-describe file('/opt/flyway/conf/flyway.properties') do
+describe file('/opt/flyway/conf/pippo.properties') do
+  it { should be_file }
+  it { should contain "flyway.url" }
+end
+
+describe file('/opt/flyway/conf/pippo2.properties') do
   it { should be_file }
   it { should contain "flyway.url" }
 end
