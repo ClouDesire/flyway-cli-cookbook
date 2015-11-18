@@ -9,7 +9,8 @@
 
 installation_path = node['flyway']['installation_path']
 
-flyway_url = node['flyway']['base_url'].gsub! 'VERSION', node['flyway']['version']
+base_url = Gem::Version.new(node['flyway']['version']) < Gem::Version.new('3.0') ? node['flyway']['old_base_url'] : node['flyway']['base_url']
+flyway_url = base_url.gsub! 'VERSION', node['flyway']['version']
 
 if platform_family?("windows") # Windows
 
