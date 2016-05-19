@@ -14,7 +14,7 @@ suites:
       ubuntu:
         archive_url: http://it.archive.ubuntu.com/ubuntu
       postgresql:
-        version: "9.4"
+        version: "9.3"
         enable_pgdg_apt: true
         password:
           postgres: admin
