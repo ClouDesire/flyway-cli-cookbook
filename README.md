@@ -19,6 +19,16 @@ include_recipe "flyway-cli::default"
 
 flyway_migrate
 
+### (Optional) Setup the Encrypted Data Bag
+
+Your data bag should look like this,
+
+    {
+      "id": "[YOUR_ID_DONT_EDIT]",
+      "jdbc_username": "USER",
+      "jdbc_password": "PASSWORD",
+    }
+
 ```
 # Attributes
 
@@ -28,6 +38,13 @@ node[:flyway][:jdbc_driver][:postgresql][:version] = "9.3-1100-jdbc4"
 node[:flyway][:jdbc_driver][:mysql][:version] = "5.1.28"
 node[:flyway][:jdbc_driver][:jtds][:version] = "1.3.1"
 
+# optional attributes to define the user/group for the properties files containing database login credentials. defaults to executing user.
+node[:flyway][:user] 
+node[:flyway][:group] 
+
+# set the permissions for the properties files. defaults to '0640'
+node[:flyway][:properties_permissions] = 0640
+
 node[:flyway][:confs] = {
     :default => {
         :jdbc_url => "jdbc:postgresql://localhost:5432/database",
@@ -36,8 +53,14 @@ node[:flyway][:confs] = {
     },
     :default2 => {
         :jdbc_url => "jdbc:jtds:sqlserver://localhost/database2",
-        :jdbc_username => "username2",
-        :jdbc_password => "password2"
+
+        # if a data bag is used, data bag name and item must be configured
+        :use_data_bag => true,
+        :data_bag_name => "data_bag",
+        :data_bag_item => "data_bag_item"
+
+        # optionally provide the path to the data bags secret file
+        :data_bag_secret_path => "/etc/chef/secret_file"
     }
 }
 

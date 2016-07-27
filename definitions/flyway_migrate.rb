@@ -9,15 +9,43 @@ define :flyway_migrate do
   migrations_path = node['flyway']['migrations_path'].gsub(/\\/, '/')
 
   node['flyway']['confs'].each do |key, confs|
-    file installation_path + "/conf/#{key}.properties" do
-      action :create
-      content <<-EOH
-flyway.url=#{confs[:jdbc_url]}
-flyway.user=#{confs[:jdbc_username]}
-flyway.password=#{confs[:jdbc_password]}
-flyway.locations=filesystem:#{migrations_path}/#{key}
-java.home=#{node['java']['java_home']}
-EOH
+    url = confs['jdbc_url']
+    user = confs['jdbc_username']
+    password = confs['jdbc_password']
+
+    if confs[:use_data_bag]
+      # Grab the encrypted data bag
+      encrypted_data_bag = nil
+      if confs.attribute?('data_bag_secret_path')
+        encrypted_data_bag = Chef::EncryptedDataBagItem.load(confs['data_bag_name'],
+                                                            confs['data_bag_item'],
+                                                            Chef::EncryptedDataBagItem.load_secret(confs['data_bag_secret_path']))
+      else
+        encrypted_data_bag = Chef::EncryptedDataBagItem.load(confs['data_bag_name'],
+                                                            confs['data_bag_item'])
+      end
+
+      user = encrypted_data_bag['jdbc_username']
+      password = encrypted_data_bag['jdbc_password']
+    end
+
+    raise "username not defined for #{key} (using databag=#{confs['use_data_bag']}" unless user
+    raise "password not defined for #{key} (using databag=#{confs['use_data_bag']}" unless password
+
+    template "#{installation_path}/conf/#{key}.properties" do
+      source 'flyway.properties.erb'
+      mode node['flyway']['properties_permissions']
+      # if user/group not overridden, will default to executing user
+      owner node['flyway']['user']
+      group node['flyway']['group']
+      variables(
+        url: url,
+        user: user,
+        password: password,
+        migrations_path: migrations_path,
+        key: key,
+        java_home: node['java']['java_home']
+      ) 
     end
 
     flyway_command = installation_path + "/flyway migrate -configFile=#{installation_path}/conf/#{key}.properties -initOnMigrate=" + node['flyway']['init_on_migrate']

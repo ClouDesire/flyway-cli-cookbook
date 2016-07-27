@@ -1,0 +1,15 @@
+{
+  "id": "flyway-item",
+  "jdbc_username": {
+    "encrypted_data": "GDSTmM7cV2WxpXkI6zTSUAJqYRoPTrGMMf2UUB9m2k4=\n",
+    "iv": "mK0DFEeM1uJkPs6ETeK/Lw==\n",
+    "version": 1,
+    "cipher": "aes-256-cbc"
+  },
+  "jdbc_password": {
+    "encrypted_data": "REEUDDIt3/0/Upt69MFu9GPED4Ff/96ghXLp7qy+xQQ=\n",
+    "iv": "xzQjfe+zxTqTNAh4O75EQg==\n",
+    "version": 1,
+    "cipher": "aes-256-cbc"
+  }
+}
