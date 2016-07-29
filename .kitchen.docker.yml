@@ -1,0 +1,41 @@
+---
+driver:
+  name: docker
+  # privileged is required otherwise the container doesn't boot right
+  privileged: true
+
+provisioner:
+  name: chef_solo
+
+platforms:
+  - name: ubuntu-14.04
+
+suites:
+  - name: default
+    run_list:
+      - recipe[ubuntu]
+      - recipe[postgresql::server]
+      - recipe[database::postgresql]
+      - recipe[flyway-cli::default]
+      - recipe[flyway-cli::test]
+      - recipe[flyway-cli::migrate]
+    attributes:
+      apt:
+        compile_time_update: true
+      ubuntu:
+        archive_url: http://it.archive.ubuntu.com/ubuntu
+      postgresql:
+        version: "9.3"
+        enable_pgdg_apt: true
+        password:
+          postgres: admin
+      flyway:
+        confs:
+          pippo:
+            jdbc_url: jdbc:postgresql://localhost:5432/pippo
+            jdbc_username: pippo
+            jdbc_password: pippo
+          pippo2:
+            jdbc_url: jdbc:postgresql://localhost:5432/pippo2
+            jdbc_username: pippo2
+            jdbc_password: pippo2
