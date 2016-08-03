@@ -12,4 +12,4 @@ supports         'windows'
 
 depends          'ubuntu'
 depends          'java', '~> 1.17'
-depends          'windows', '~> 1.38.3'
+depends          'windows', '~> 1.38'
