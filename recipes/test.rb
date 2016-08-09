@@ -11,9 +11,22 @@ node['flyway']['confs'].each do |key, confs|
     action :create
   end
 
-  postgresql_database_user confs['jdbc_username'] do
+  user = confs['jdbc_username']
+  password = confs['jdbc_password']
+
+
+  if confs['use_data_bag']
+    # Grab the databag
+    encrypted_data_bag = Chef::EncryptedDataBagItem.load(confs['data_bag_name'],
+                                                         confs['data_bag_item'])
+
+    user = encrypted_data_bag['jdbc_username']
+    password = encrypted_data_bag['jdbc_password']
+  end
+
+  postgresql_database_user user do
     connection db_connection_info
-    password confs['jdbc_password']
+    password password
     database_name key
     host node['postgresql']['config']['listen_addresses']
     privileges [:all]

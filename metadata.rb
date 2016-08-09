@@ -10,6 +10,5 @@ version          '0.3.2'
 supports         'ubuntu'
 supports         'windows'
 
-depends          'ubuntu'
 depends          'java', '~> 1.17'
 depends          'windows', '~> 1.38'
