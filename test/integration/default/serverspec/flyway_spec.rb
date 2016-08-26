@@ -19,6 +19,8 @@ describe file('/opt/flyway/conf/pippo2.properties') do
   it { should contain "flyway.password=flyway" }
   it { should contain "flyway.locations" }
   it { should contain "java.home" }
+  it { should contain "flyway.table=alternate_schema_version" }
+  it { should contain "flyway.encoding=UTF-8" }
 end
 
 describe command('java -version') do

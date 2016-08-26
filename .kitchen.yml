@@ -40,3 +40,6 @@ suites:
             data_bag_name: flyway
             data_bag_item: flyway-item
             jdbc_url: jdbc:postgresql://localhost:5432/pippo2
+            options:
+              flyway.table: alternate_schema_version
+              flyway.encoding: UTF-8
