@@ -44,7 +44,8 @@ define :flyway_migrate do
         password: password,
         migrations_path: migrations_path,
         key: key,
-        java_home: node['java']['java_home']
+        java_home: node['java']['java_home'],
+        options: confs['options']
       ) 
     end
 

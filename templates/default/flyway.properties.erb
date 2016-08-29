@@ -3,3 +3,5 @@ flyway.user=<%= @user %>
 flyway.password=<%= @password %>
 flyway.locations=filesystem:<%= @migrations_path %>/<%= @key %>
 java.home=<%= @java_home  %>
+<% if @options %><% @options.each do |k, v| -%><%= k %>=<%= v %>
+<% end -%><% end -%>
