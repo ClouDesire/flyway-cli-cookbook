@@ -33,6 +33,7 @@ define :flyway_migrate do
     raise "password not defined for #{key} (using databag=#{confs['use_data_bag']}" unless password
 
     template "#{installation_path}/conf/#{key}.properties" do
+      cookbook node['flyway']['properties_template_cookbook']
       source 'flyway.properties.erb'
       mode node['flyway']['properties_permissions']
       # if user/group not overridden, will default to executing user
