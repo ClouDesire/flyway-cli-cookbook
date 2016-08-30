@@ -1,7 +1,7 @@
 flyway-cli-cookbook
 ===================
 
-[![Build Status](https://travis-ci.org/ClouDesire/flyway-cli-cookbook.svg?branch=master)](https://travis-ci.org/ClouDesire/flyway-cli-cookbook) [![Supermarket version]( 	https://img.shields.io/cookbook/v/chef-sugar.svg)](https://supermarket.chef.io/cookbooks/flyway-cli)
+[![Build Status](https://travis-ci.org/ClouDesire/flyway-cli-cookbook.svg?branch=master)](https://travis-ci.org/ClouDesire/flyway-cli-cookbook) [![Supermarket version](https://img.shields.io/cookbook/v/flyway-cli.svg)](https://supermarket.chef.io/cookbooks/flyway-cli)
 
 This cookbook configure the CLI version of the flyway tool, and support multiple databases.
 
