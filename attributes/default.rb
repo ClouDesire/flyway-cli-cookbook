@@ -17,6 +17,7 @@ default['flyway']['jdbc_driver']['jtds']['version'] = "1.3.1"
 default['flyway']['init_on_migrate'] = "false"
 default['flyway']['include_java_recipe'] = true
 default['flyway']['properties_permissions'] = 0640
+default['flyway']['properties_template_cookbook'] = 'flyway-cli'
 
 default['flyway']['version_installed'] = "0"
 default['flyway']['old_base_url'] = "http://repo1.maven.org/maven2/com/googlecode/flyway/flyway-commandline/VERSION/flyway-commandline-VERSION.tar.gz"
