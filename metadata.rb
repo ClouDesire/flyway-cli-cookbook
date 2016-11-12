@@ -11,4 +11,5 @@ supports         'ubuntu'
 supports         'windows'
 
 depends          'java', '~> 1.17'
-depends          'windows', '~> 1.38'
+depends          'ark'
+depends          'compat_resource' # For custom resource compilation on chef-client versions < 12.5
