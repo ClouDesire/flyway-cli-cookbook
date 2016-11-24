@@ -125,11 +125,13 @@ Attribute parameters for migrate:
  * `db_username`: The user used for communicating with the database (required)
  * `db_password`: The password used for communicating with the database (required)
 
-# Authors
+# Contributors
 
-Giovanni Toraldo @gionn
-Manuel Mazzuola @manuelmazzuola
-Edward 'Cole' Skoviak @EdwardSkoviak
+Giovanni Toraldo [@gionn](https://github.com/gionn)
+
+Manuel Mazzuola [@manuelmazzuola](https://github.com/manuelmazzuola)
+
+Edward 'Cole' Skoviak [@EdwardSkoviak](https://github.com/EdwardSkoviak)
 
 # License
 
