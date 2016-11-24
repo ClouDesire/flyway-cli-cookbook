@@ -3,22 +3,21 @@ driver:
   name: vagrant
 
 provisioner:
-  name: chef_solo
+  name: chef_zero
 
 platforms:
   - name: ubuntu-14.04
 
 suites:
   - name: default
-    data_bags_path: "test/integration/default/data_bags"
-    encrypted_data_bag_secret_key_path: "test/integration/default/encrypted_data_bag_secret"
+    data_bags_path: test/integration/default/data_bags
+    encrypted_data_bag_secret_key_path: test/integration/default/encrypted_data_bag_secret
     run_list:
       - recipe[ubuntu]
       - recipe[postgresql::server]
       - recipe[database::postgresql]
-      - recipe[flyway-cli::default]
-      - recipe[flyway-cli::test]
-      - recipe[flyway-cli::migrate]
+      - recipe[flyway_cli_tester]
+      - recipe[flyway-cli]
     attributes:
       apt:
         compile_time_update: true
@@ -35,11 +34,13 @@ suites:
             jdbc_url: jdbc:postgresql://localhost:5432/pippo
             jdbc_username: pippo
             jdbc_password: pippo
+            migrations_url: file:////tmp/migrations.tar.gz
           pippo2:
-            use_data_bag: true
-            data_bag_name: flyway
-            data_bag_item: flyway-item
+            data_bag:
+              name: flyway
+              item: flyway-item
             jdbc_url: jdbc:postgresql://localhost:5432/pippo2
             options:
               flyway.table: alternate_schema_version
               flyway.encoding: UTF-8
+            migrations_url: file:////tmp/migrations.tar.gz
