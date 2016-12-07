@@ -60,7 +60,7 @@ The following attributes are utilized by the recipes to configure installation a
  * `['flyway']['user']`: The user that will own and run the flyway process (default='flyway')
  * `['flyway']['group']`: The group the flyway user will be a part of (default='flyway')
 
-The following attributes are utilizing for executing the migrations:
+The following attributes are utilized for executing the migrations:
 
  * `['flyway']['confs']["#{config_id}"]`: The identifier for the nested configuration. This identifier is used to namespace migrations into separate directories under `['flyway']['migrations_path']`, and identifies the flyway properties file used by the cli
  * `['flyway']['confs']["#{config_id}"]['jdbc_url']`: The url used for communicating with the database (required)
@@ -76,8 +76,8 @@ The following attributes can be utilized to trigger retrieving database username
  * `['flyway']['confs']["#{config_id}"]['data_bag']['name']`: The name of the data bag to read from (required)
  * `['flyway']['confs']["#{config_id}"]['data_bag']['item']`: The name of the data bag item to read from (required)
  * `['flyway']['confs']["#{config_id}"]['data_bag']['secret_file']`: An optional secret file if the node's default secret file isn't to be used for decryption
- * `['flyway']['confs']["#{config_id}"]['data_bag']['username_key']`: The identifier of the username field in the data bag (default='jdbc_username')
- * `['flyway']['confs']["#{config_id}"]['data_bag']['password_key']`: The identifier of the password field in the data bag (default='jdbc_password')
+ * `['flyway']['confs']["#{config_id}"]['data_bag']['jdbc_username_key']`: The identifier of the username field in the data bag (default='jdbc_username')
+ * `['flyway']['confs']["#{config_id}"]['data_bag']['jdbc_password_key']`: The identifier of the password field in the data bag (default='jdbc_password')
 
 # Recipes
 
