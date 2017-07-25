@@ -40,9 +40,9 @@ action_class do
     flyway_url = new_resource.flyway_url
     if flyway_url.nil?
       flyway_url = Gem::Version.new(new_resource.version) < Gem::Version.new('3.0') ? node['flyway']['old_base_url'] : node['flyway']['base_url']
-      flyway_url.gsub! 'VERSION', node['flyway']['version']
+      flyway_url = flyway_url.gsub 'VERSION', node['flyway']['version']
       if platform_family?('windows')
-        flyway_url.gsub! 'tar.gz', 'zip'
+        flyway_url = flyway_url.gsub 'tar.gz', 'zip'
       end
     end
     flyway_url
